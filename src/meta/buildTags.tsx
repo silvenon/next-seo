@@ -25,6 +25,8 @@ const buildTags = (config: BuildTagsParams) => {
       updatedTitle = defaults.templateTitle.replace(/%s/g, () => updatedTitle);
     }
     tagsToRender.push(<title key="title">{updatedTitle}</title>);
+  } else if (config.defaultTitle) {
+    tagsToRender.push(<title key="title">{config.defaultTitle}</title>);
   }
 
   const noindex =
@@ -93,7 +95,7 @@ const buildTags = (config: BuildTagsParams) => {
   }
 
   if (config.languageAlternates && config.languageAlternates.length > 0) {
-    config.languageAlternates.forEach(languageAlternate => {
+    config.languageAlternates.forEach((languageAlternate) => {
       tagsToRender.push(
         <link
           rel="alternate"
@@ -614,7 +616,7 @@ const buildTags = (config: BuildTagsParams) => {
   }
 
   if (config.additionalMetaTags && config.additionalMetaTags.length > 0) {
-    config.additionalMetaTags.forEach(tag => {
+    config.additionalMetaTags.forEach((tag) => {
       tagsToRender.push(
         <meta key={tag.name ? tag.name : tag.property} {...tag} />,
       );

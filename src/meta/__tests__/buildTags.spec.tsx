@@ -118,19 +118,19 @@ it('returns full array for default seo object', () => {
   const ogImage00 = container.querySelectorAll(
     `meta[content="${SEO.openGraph.images[0].url}"]`,
   );
-  const ogImageTag00 = tags.filter(item => item.key === 'og:image:01');
+  const ogImageTag00 = tags.filter((item) => item.key === 'og:image:01');
   const ogImage01 = container.querySelectorAll(
     `meta[content="${SEO.openGraph.images[1].url}"]`,
   );
-  const ogImageTag01 = tags.filter(item => item.key === 'og:image:01');
+  const ogImageTag01 = tags.filter((item) => item.key === 'og:image:01');
   const ogImage02 = container.querySelectorAll(
     `meta[content="${SEO.openGraph.images[2].url}"]`,
   );
-  const ogImageTag02 = tags.filter(item => item.key === 'og:image:02');
+  const ogImageTag02 = tags.filter((item) => item.key === 'og:image:02');
   const ogImage03 = container.querySelectorAll(
     `meta[content="${SEO.openGraph.images[3].url}"]`,
   );
-  const ogImageTag03 = tags.filter(item => item.key === 'og:image:03');
+  const ogImageTag03 = tags.filter((item) => item.key === 'og:image:03');
   const ogDefaultImageWidthHeight = container.querySelectorAll(
     `meta[content="${SEO.defaultOpenGraphImageHeight}"]`,
   );
@@ -146,12 +146,12 @@ it('returns full array for default seo object', () => {
   const ogLocale = container.querySelectorAll(
     `meta[content="${SEO.openGraph.locale}"]`,
   );
-  const ogLocaleTag = tags.filter(item => item.key === 'og:locale');
+  const ogLocaleTag = tags.filter((item) => item.key === 'og:locale');
   const ogSiteName = container.querySelectorAll(
     `meta[content="${SEO.openGraph.site_name}"]`,
   );
-  const ogSiteNameTag = tags.filter(item => item.key === 'og:site_name');
-  const canonicalTag = tags.filter(item => item.key === 'canonical');
+  const ogSiteNameTag = tags.filter((item) => item.key === 'og:site_name');
+  const canonicalTag = tags.filter((item) => item.key === 'canonical');
 
   const mobileAlternateTag = container.querySelectorAll(
     'link[rel="alternate"][media]',
@@ -292,6 +292,27 @@ it('displays title with titleTemplate integrated', () => {
   expect(title.innerHTML).toMatch(`${template} | ${SEO.title}`);
 });
 
+it('displays defaultTitle as a fallback for title, ignoring titleTemplate', () => {
+  const template = 'Next SEO';
+  const defaultTitle = 'This is the default title';
+  const overrideProps = {
+    ...SEO,
+    titleTemplate: `${template} | %s`,
+    title: undefined,
+    defaultTitle,
+  };
+  const tags = buildTags(overrideProps);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
+  const title = getByText(
+    container,
+    (content, element) =>
+      element.tagName.toLowerCase() === 'title' &&
+      content.startsWith(defaultTitle),
+  );
+  expect(title.innerHTML).toMatch(defaultTitle);
+  expect(title.innerHTML).not.toMatch(template);
+});
+
 const ArticleSEO = {
   title: 'Article Page Title',
   description: 'Description of article page',
@@ -370,13 +391,13 @@ it('Check article og type meta', () => {
     `meta[content="${ArticleSEO.openGraph.article.authors[0]}"]`,
   );
   const ogArticleAuthorTag00 = tags.filter(
-    item => item.key === 'article:author:00',
+    (item) => item.key === 'article:author:00',
   );
   const ogArticleAuthor01 = container.querySelectorAll(
     `meta[content="${ArticleSEO.openGraph.article.authors[1]}"]`,
   );
   const ogArticleAuthorTag01 = tags.filter(
-    item => item.key === 'article:author:01',
+    (item) => item.key === 'article:author:01',
   );
   const ogArticleSection = container.querySelectorAll(
     `meta[content="${ArticleSEO.openGraph.article.section}"]`,
@@ -387,11 +408,15 @@ it('Check article og type meta', () => {
   const ogArticleTags00 = container.querySelectorAll(
     `meta[content="${ArticleSEO.openGraph.article.tags[0]}"]`,
   );
-  const ogArticleTagsTag00 = tags.filter(item => item.key === 'article:tag:00');
+  const ogArticleTagsTag00 = tags.filter(
+    (item) => item.key === 'article:tag:00',
+  );
   const ogArticleTags01 = container.querySelectorAll(
     `meta[content="${ArticleSEO.openGraph.article.tags[1]}"]`,
   );
-  const ogArticleTagsTag01 = tags.filter(item => item.key === 'article:tag:01');
+  const ogArticleTagsTag01 = tags.filter(
+    (item) => item.key === 'article:tag:01',
+  );
 
   expect(Array.from(ogType).length).toBe(1);
   expect(Array.from(ogTypeTag).length).toBe(1);
@@ -476,11 +501,15 @@ it('Check book og type meta', () => {
   const ogBookAuthor00 = container.querySelectorAll(
     `meta[content="${BookSEO.openGraph.book.authors[0]}"]`,
   );
-  const ogBookAuthorTag00 = tags.filter(item => item.key === 'book:author:00');
+  const ogBookAuthorTag00 = tags.filter(
+    (item) => item.key === 'book:author:00',
+  );
   const ogBookAuthor01 = container.querySelectorAll(
     `meta[content="${BookSEO.openGraph.book.authors[1]}"]`,
   );
-  const ogBookAuthorTag01 = tags.filter(item => item.key === 'book:author:01');
+  const ogBookAuthorTag01 = tags.filter(
+    (item) => item.key === 'book:author:01',
+  );
   const ogBookIsbn = container.querySelectorAll(
     `meta[content="${BookSEO.openGraph.book.isbn}"]`,
   );
@@ -490,11 +519,11 @@ it('Check book og type meta', () => {
   const ogBookTags00 = container.querySelectorAll(
     `meta[content="${BookSEO.openGraph.book.tags[0]}"]`,
   );
-  const ogBookTagsTag00 = tags.filter(item => item.key === 'book:tag:00');
+  const ogBookTagsTag00 = tags.filter((item) => item.key === 'book:tag:00');
   const ogBookTags01 = container.querySelectorAll(
     `meta[content="${BookSEO.openGraph.book.tags[1]}"]`,
   );
-  const ogBookTagsTag01 = tags.filter(item => item.key === 'book:tag:01');
+  const ogBookTagsTag01 = tags.filter((item) => item.key === 'book:tag:01');
 
   expect(Array.from(ogType).length).toBe(1);
   expect(Array.from(ogTypeTag).length).toBe(1);
@@ -683,55 +712,59 @@ it('Check video og type meta', () => {
   const ogVideoActors00 = container.querySelectorAll(
     `meta[content="${VideoSEO.openGraph.video.actors[0].profile}"]`,
   );
-  const ogVideoActorsTag00 = tags.filter(item => item.key === 'video:actor:00');
+  const ogVideoActorsTag00 = tags.filter(
+    (item) => item.key === 'video:actor:00',
+  );
   const ogVideoActors01 = container.querySelectorAll(
     `meta[content="${VideoSEO.openGraph.video.actors[1].profile}"]`,
   );
-  const ogVideoActorsTag01 = tags.filter(item => item.key === 'video:actor:01');
+  const ogVideoActorsTag01 = tags.filter(
+    (item) => item.key === 'video:actor:01',
+  );
   const ogVideoActorsRoles00 = container.querySelectorAll(
     `meta[content="${VideoSEO.openGraph.video.actors[0].role}"]`,
   );
   const ogVideoActorsRolesTag00 = tags.filter(
-    item => item.key === 'video:actor:role:00',
+    (item) => item.key === 'video:actor:role:00',
   );
   const ogVideoActorsRoles01 = container.querySelectorAll(
     `meta[content="${VideoSEO.openGraph.video.actors[1].role}"]`,
   );
   const ogVideoActorsRolesTag01 = tags.filter(
-    item => item.key === 'video:actor:role:01',
+    (item) => item.key === 'video:actor:role:01',
   );
   const ogVideoDirectors00 = container.querySelectorAll(
     `meta[content="${VideoSEO.openGraph.video.directors[0]}"]`,
   );
   const ogVideoDirectorsTag00 = tags.filter(
-    item => item.key === 'video:director:00',
+    (item) => item.key === 'video:director:00',
   );
   const ogVideoDirectors01 = container.querySelectorAll(
     `meta[content="${VideoSEO.openGraph.video.directors[1]}"]`,
   );
   const ogVideoDirectorsTag01 = tags.filter(
-    item => item.key === 'video:director:01',
+    (item) => item.key === 'video:director:01',
   );
   const ogVideoWriters00 = container.querySelectorAll(
     `meta[content="${VideoSEO.openGraph.video.writers[0]}"]`,
   );
   const ogVideoWritersTag00 = tags.filter(
-    item => item.key === 'video:writer:00',
+    (item) => item.key === 'video:writer:00',
   );
   const ogVideoWriters01 = container.querySelectorAll(
     `meta[content="${VideoSEO.openGraph.video.writers[1]}"]`,
   );
   const ogVideoWritersTag01 = tags.filter(
-    item => item.key === 'video:writer:01',
+    (item) => item.key === 'video:writer:01',
   );
   const ogVideoTags00 = container.querySelectorAll(
     `meta[content="${ArticleSEO.openGraph.article.tags[0]}"]`,
   );
-  const ogVideoTagsTag00 = tags.filter(item => item.key === 'video:tag:00');
+  const ogVideoTagsTag00 = tags.filter((item) => item.key === 'video:tag:00');
   const ogVideoTags01 = container.querySelectorAll(
     `meta[content="${VideoSEO.openGraph.video.tags[1]}"]`,
   );
-  const ogVideoTagsTag01 = tags.filter(item => item.key === 'video:tag:01');
+  const ogVideoTagsTag01 = tags.filter((item) => item.key === 'video:tag:01');
 
   expect(Array.from(ogType).length).toBe(1);
   expect(Array.from(ogTypeTag).length).toBe(1);
