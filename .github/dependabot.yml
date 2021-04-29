@@ -1,0 +1,72 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "12:00"
+    timezone: Europe/Zagreb
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: cypress-testing-library
+    versions:
+    - ">= 0"
+  - dependency-name: react-testing-library
+    versions:
+    - ">= 0"
+  - dependency-name: "@babel/preset-env"
+    versions:
+    - 7.13.10
+    - 7.13.12
+  - dependency-name: next
+    versions:
+    - 10.0.8
+    - 10.0.9
+    - 10.1.0
+    - 10.1.1
+    - 10.1.2
+    - 10.1.3
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.23
+    - 14.14.23
+    - 14.14.23
+    - 14.14.27
+    - 14.14.29
+    - 14.14.30
+    - 14.14.32
+    - 14.14.33
+    - 14.14.34
+    - 14.14.35
+    - 14.14.35
+    - 14.14.36
+    - 14.14.37
+    - 14.14.39
+    - 14.14.41
+    - 15.0.0
+  - dependency-name: "@babel/core"
+    versions:
+    - 7.13.0
+    - 7.13.10
+    - 7.13.13
+    - 7.13.14
+    - 7.13.15
+  - dependency-name: "@babel/cli"
+    versions:
+    - 7.13.10
+    - 7.13.14
+  - dependency-name: "@types/react-dom"
+    versions:
+    - 17.0.2
+    - 17.0.2
+  - dependency-name: "@types/react"
+    versions:
+    - 17.0.2
+    - 17.0.3
+  - dependency-name: "@babel/plugin-proposal-class-properties"
+    versions:
+    - 7.12.13
+  - dependency-name: y18n
+    versions:
+    - 4.0.1
+    - 4.0.2
